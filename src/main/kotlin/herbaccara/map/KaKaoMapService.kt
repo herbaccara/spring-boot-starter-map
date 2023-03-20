@@ -147,6 +147,7 @@ class KaKaoMapService(
         return restTemplate.getForObject(uri)
     }
 
+    @JvmOverloads
     fun searchCategory(categoryGroupCode: CategoryGroupCode, page: Int = 1, size: Int = 15): SearchCategoryResult {
         return searchCategory(SearchCategoryForm(categoryGroupCode, page = page, size = size))
     }
