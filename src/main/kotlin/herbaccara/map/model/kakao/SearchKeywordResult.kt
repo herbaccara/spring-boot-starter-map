@@ -17,7 +17,7 @@ data class SearchKeywordResult(
         @field:JsonProperty("id") val id: Long,
         @field:JsonProperty("place_name") val placeName: String,
         @field:JsonProperty("category_name") val categoryName: String,
-        @field:JsonProperty("category_group_code") val categoryGroupCode: String,
+        @field:JsonProperty("category_group_code") val categoryGroupCode: CategoryGroupCode,
         @field:JsonProperty("category_group_name") val categoryGroupName: String,
         @field:JsonProperty("phone") val phone: String,
         @field:JsonProperty("address_name") val addressName: String,
