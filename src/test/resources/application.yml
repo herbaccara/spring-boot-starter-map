@@ -1,0 +1,7 @@
+map:
+  kakao:
+    api-key:
+logging:
+  level:
+    root: info
+    org.springframework.web: debug
