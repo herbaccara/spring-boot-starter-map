@@ -6,10 +6,7 @@ import herbaccara.map.model.kakao.AnalyzeType
 import herbaccara.map.model.kakao.Document
 import herbaccara.map.model.kakao.SearchResult
 import org.springframework.boot.web.client.RestTemplateBuilder
-import org.springframework.http.HttpRequest
-import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.getForObject
 import org.springframework.web.util.UriComponentsBuilder
@@ -35,17 +32,11 @@ class KaKaoMapService(
                 MappingJackson2HttpMessageConverter(objectMapper)
             )
         )
-        .additionalInterceptors(object : ClientHttpRequestInterceptor {
-            override fun intercept(
-                request: HttpRequest,
-                body: ByteArray,
-                execution: ClientHttpRequestExecution
-            ): ClientHttpResponse {
-                request.headers.apply {
-                    add("Authorization", "KakaoAK $apiKey")
-                }
-                return execution.execute(request, body)
+        .additionalInterceptors(ClientHttpRequestInterceptor { request, body, execution ->
+            request.headers.apply {
+                add("Authorization", "KakaoAK $apiKey")
             }
+            execution.execute(request, body)
         })
         .build()
 
