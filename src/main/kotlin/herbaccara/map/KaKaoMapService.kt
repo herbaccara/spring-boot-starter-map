@@ -3,12 +3,14 @@ package herbaccara.map
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import herbaccara.map.model.kakao.AnalyzeType
+import herbaccara.map.model.kakao.Document
 import herbaccara.map.model.kakao.SearchResult
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.getForObject
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -28,6 +30,11 @@ class KaKaoMapService(
 
     protected val restTemplate = RestTemplateBuilder()
         .rootUri(baseUrl)
+        .messageConverters(
+            listOf(
+                MappingJackson2HttpMessageConverter(objectMapper)
+            )
+        )
         .additionalInterceptors(object : ClientHttpRequestInterceptor {
             override fun intercept(
                 request: HttpRequest,
@@ -41,6 +48,14 @@ class KaKaoMapService(
             }
         })
         .build()
+
+    fun linkTo(name: String, latitude: Double, longitude: Double): String {
+        return "https://map.kakao.com/link/to/$name,$latitude,$longitude"
+    }
+
+    fun linkTo(doc: Document): String {
+        return linkTo(doc.addressName, doc.y, doc.x)
+    }
 
     @JvmOverloads
     fun search(query: String, page: Int = 1, size: Int = 10, analyzeType: AnalyzeType? = null): SearchResult {

@@ -20,7 +20,7 @@ class KaKaoMapServiceTest {
     @Test
     fun search() {
         val search = kaKaoMapService.search("송파구 송파동 86-17")
-        val toLink = search.documents.first().toLink()
+        val toLink = kaKaoMapService.linkTo(search.documents.first())
         println(toLink)
     }
 }

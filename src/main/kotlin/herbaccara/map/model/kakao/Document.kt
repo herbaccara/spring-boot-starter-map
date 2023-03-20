@@ -9,8 +9,4 @@ data class Document(
     @field:JsonProperty("road_address") val roadAddress: RoadAddress,
     val x: Double,
     val y: Double
-) {
-    fun toLink(): String {
-        return "https://map.kakao.com/link/to/${addressName},${y},${x}"
-    }
-}
+)

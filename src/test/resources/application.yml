@@ -1,6 +1,7 @@
 map:
   kakao:
     api-key:
+    fail-on-unknown-properties: true
 logging:
   level:
     root: info
