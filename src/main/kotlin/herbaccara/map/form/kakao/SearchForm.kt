@@ -13,14 +13,14 @@ interface SearchForm {
     val sort: Sort?
 
     fun toMultiValueMap(): MultiValueMap<String, String> {
-        return LinkedMultiValueMap<String, String>().apply {
-            if (x != null) add("x", x.toString())
-            if (y != null) add("y", y.toString())
-            if (radius != null) add("radius", radius.toString())
-            if (rect != null) add("rect", rect.toString())
-            if (page != null) add("page", page.toString())
-            if (size != null) add("size", size.toString())
-            if (sort != null) add("sort", sort.toString())
+        return LinkedMultiValueMap<String, String>().also { map ->
+            if (x != null) map.add("x", x.toString())
+            if (y != null) map.add("y", y.toString())
+            if (radius != null) map.add("radius", radius.toString())
+            if (rect != null) map.add("rect", rect.toString())
+            if (page != null) map.add("page", page.toString())
+            if (size != null) map.add("size", size.toString())
+            if (sort != null) map.add("sort", sort.toString())
         }
     }
 }
