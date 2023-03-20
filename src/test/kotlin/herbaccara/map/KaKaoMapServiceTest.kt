@@ -52,7 +52,9 @@ class KaKaoMapServiceTest {
 
     @Test
     fun searchCategory() {
-        val searchCategory = kaKaoMapService.searchCategory(SearchCategoryForm(CategoryGroupCode.PM9))
+        val searchCategory = kaKaoMapService.searchCategory(
+            SearchCategoryForm(CategoryGroupCode.PM9, radius = 2000)
+        )
         println()
     }
 }
