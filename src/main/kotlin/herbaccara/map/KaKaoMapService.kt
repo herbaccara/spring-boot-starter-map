@@ -2,9 +2,9 @@ package herbaccara.map
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import herbaccara.map.model.kakao.AnalyzeType
-import herbaccara.map.model.kakao.Document
-import herbaccara.map.model.kakao.SearchResult
+import herbaccara.map.form.kakao.SearchCategoryForm
+import herbaccara.map.form.kakao.SearchKeywordForm
+import herbaccara.map.model.kakao.*
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
@@ -32,24 +32,31 @@ class KaKaoMapService(
                 MappingJackson2HttpMessageConverter(objectMapper)
             )
         )
-        .additionalInterceptors(ClientHttpRequestInterceptor { request, body, execution ->
-            request.headers.apply {
-                add("Authorization", "KakaoAK $apiKey")
+        .additionalInterceptors(
+            ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.apply {
+                    add("Authorization", "KakaoAK $apiKey")
+                }
+                execution.execute(request, body)
             }
-            execution.execute(request, body)
-        })
+        )
         .build()
 
-    fun linkTo(name: String, latitude: Double, longitude: Double): String {
-        return "https://map.kakao.com/link/to/$name,$latitude,$longitude"
+    fun linkTo(name: String, x: Double, y: Double): String {
+        return "https://map.kakao.com/link/to/$name,$y,$x"
     }
 
-    fun linkTo(doc: Document): String {
-        return linkTo(doc.addressName, doc.y, doc.x)
+    fun linkTo(doc: SearchAddressResult.Document): String {
+        return linkTo(doc.addressName, doc.x, doc.y)
     }
 
     @JvmOverloads
-    fun search(query: String, page: Int = 1, size: Int = 10, analyzeType: AnalyzeType? = null): SearchResult {
+    fun searchAddress(
+        query: String,
+        page: Int = 1,
+        size: Int = 10,
+        analyzeType: AnalyzeType? = null
+    ): SearchAddressResult {
         val uri = UriComponentsBuilder
             .fromUriString("/v2/local/search/address.json")
             .apply {
@@ -61,6 +68,103 @@ class KaKaoMapService(
                 }
             }
             .toUriString() + "&query=" + query
+
+        return restTemplate.getForObject(uri)
+    }
+
+    @JvmOverloads
+    fun coordToRegionCode(
+        x: Double,
+        y: Double,
+        inputCoord: CoordType = CoordType.WGS84,
+        outputCoord: CoordType = CoordType.WGS84
+    ): CoordToRegionCodeResult {
+        val uri = UriComponentsBuilder
+            .fromUriString("/v2/local/geo/coord2regioncode.json")
+            .queryParam("x", x)
+            .queryParam("y", y)
+            .queryParam("input_coord", inputCoord)
+            .queryParam("output_coord", outputCoord)
+            .toUriString()
+
+        return restTemplate.getForObject(uri)
+    }
+
+    @JvmOverloads
+    fun coordToAddress(
+        x: Double,
+        y: Double,
+        inputCoord: CoordType = CoordType.WGS84
+    ): CoordToAddressResult {
+        val uri = UriComponentsBuilder
+            .fromUriString("/v2/local/geo/coord2address.json")
+            .queryParam("x", x)
+            .queryParam("y", y)
+            .queryParam("input_coord", inputCoord)
+            .toUriString()
+
+        return restTemplate.getForObject(uri)
+    }
+
+    @JvmOverloads
+    fun transCoord(
+        x: Double,
+        y: Double,
+        inputCoord: CoordType = CoordType.WGS84,
+        outputCoord: CoordType = CoordType.WGS84
+    ): TransCoordResult {
+        val uri = UriComponentsBuilder
+            .fromUriString("/v2/local/geo/transcoord.json")
+            .queryParam("x", x)
+            .queryParam("y", y)
+            .queryParam("input_coord", inputCoord)
+            .queryParam("output_coord", outputCoord)
+            .toUriString()
+
+        return restTemplate.getForObject(uri)
+    }
+
+    @JvmOverloads
+    fun searchKeyword(query: String, page: Int = 1, size: Int = 15): SearchKeywordResult {
+        return searchKeyword(SearchKeywordForm(query, page = page, size = size))
+    }
+
+    fun searchKeyword(form: SearchKeywordForm): SearchKeywordResult {
+        val uri = UriComponentsBuilder
+            .fromUriString("/v2/local/search/keyword.json")
+            .apply {
+                if (form.categoryGroupCode != null) queryParam("category_group_code", form.categoryGroupCode)
+                if (form.x != null) queryParam("x", form.x)
+                if (form.y != null) queryParam("y", form.y)
+                if (form.radius != null) queryParam("radius", form.radius)
+                if (form.rect != null) queryParam("rect", form.rect)
+                if (form.page != null) queryParam("page", form.page)
+                if (form.size != null) queryParam("size", form.size)
+                if (form.sort != null) queryParam("sort", form.sort)
+            }
+            .toUriString() + "&query=" + form.query
+
+        return restTemplate.getForObject(uri)
+    }
+
+    fun searchCategory(categoryGroupCode: CategoryGroupCode, page: Int = 1, size: Int = 15): SearchCategoryResult {
+        return searchCategory(SearchCategoryForm(categoryGroupCode, page = page, size = size))
+    }
+
+    fun searchCategory(form: SearchCategoryForm): SearchCategoryResult {
+        val uri = UriComponentsBuilder
+            .fromUriString("/v2/local/search/category.json")
+            .queryParam("category_group_code", form.categoryGroupCode)
+            .apply {
+                if (form.x != null) queryParam("x", form.x)
+                if (form.y != null) queryParam("y", form.y)
+                if (form.radius != null) queryParam("radius", form.radius)
+                if (form.rect != null) queryParam("rect", form.rect)
+                if (form.page != null) queryParam("page", form.page)
+                if (form.size != null) queryParam("size", form.size)
+                if (form.sort != null) queryParam("sort", form.sort)
+            }
+            .toUriString()
 
         return restTemplate.getForObject(uri)
     }
