@@ -132,16 +132,7 @@ class KaKaoMapService(
     fun searchKeyword(form: SearchKeywordForm): SearchKeywordResult {
         val uri = UriComponentsBuilder
             .fromUriString("/v2/local/search/keyword.json")
-            .apply {
-                if (form.categoryGroupCode != null) queryParam("category_group_code", form.categoryGroupCode)
-                if (form.x != null) queryParam("x", form.x)
-                if (form.y != null) queryParam("y", form.y)
-                if (form.radius != null) queryParam("radius", form.radius)
-                if (form.rect != null) queryParam("rect", form.rect)
-                if (form.page != null) queryParam("page", form.page)
-                if (form.size != null) queryParam("size", form.size)
-                if (form.sort != null) queryParam("sort", form.sort)
-            }
+            .queryParams(form.toMultiValueMap())
             .toUriString() + "&query=" + form.query
 
         return restTemplate.getForObject(uri)
@@ -155,16 +146,7 @@ class KaKaoMapService(
     fun searchCategory(form: SearchCategoryForm): SearchCategoryResult {
         val uri = UriComponentsBuilder
             .fromUriString("/v2/local/search/category.json")
-            .queryParam("category_group_code", form.categoryGroupCode)
-            .apply {
-                if (form.x != null) queryParam("x", form.x)
-                if (form.y != null) queryParam("y", form.y)
-                if (form.radius != null) queryParam("radius", form.radius)
-                if (form.rect != null) queryParam("rect", form.rect)
-                if (form.page != null) queryParam("page", form.page)
-                if (form.size != null) queryParam("size", form.size)
-                if (form.sort != null) queryParam("sort", form.sort)
-            }
+            .queryParams(form.toMultiValueMap())
             .toUriString()
 
         return restTemplate.getForObject(uri)
