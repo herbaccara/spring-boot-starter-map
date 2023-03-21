@@ -42,13 +42,35 @@ class KaKaoMapService(
         )
         .build()
 
-    fun linkTo(name: String, x: Double, y: Double): String {
-        return "https://map.kakao.com/link/to/$name,$y,$x"
-    }
+    private fun link(type: LinkType, query: String): String = "https://map.kakao.com/link/$type/$query"
+
+    // link to
+
+    fun linkTo(name: String, x: Double, y: Double): String = link(LinkType.to, "$name,$y,$x")
+
+    fun linkTo(id: Long): String = link(LinkType.to, "$id")
 
     fun linkTo(doc: SearchAddressResult.Document): String {
         return linkTo(doc.addressName, doc.x, doc.y)
     }
+
+    // link map
+
+    fun linkMap(name: String, x: Double, y: Double): String = link(LinkType.map, "$name,$y,$x")
+
+    fun linkMap(x: Double, y: Double): String = link(LinkType.map, "$y,$x")
+
+    fun linkMap(id: Long): String = link(LinkType.map, "$id")
+
+    // link roadview
+
+    fun linkRoadview(x: Double, y: Double): String = link(LinkType.roadview, "$y,$x")
+
+    fun linkRoadview(id: Long): String = link(LinkType.roadview, "$id")
+
+    // link search
+
+    fun linkSearch(keyword: String): String = link(LinkType.search, keyword)
 
     @JvmOverloads
     fun searchAddress(

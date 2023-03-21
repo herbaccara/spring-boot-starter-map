@@ -21,9 +21,11 @@ class KaKaoMapServiceTest {
 
     @Test
     fun searchAddress() {
-        val search = kaKaoMapService.searchAddress("송파구 송파동 86-17")
-        val toLink = kaKaoMapService.linkTo(search.documents.first())
-        println(toLink)
+        val search = kaKaoMapService.searchAddress("경희도선한의원")
+        if (search.documents.isNotEmpty()) {
+            val toLink = kaKaoMapService.linkTo(search.documents.first())
+            println(toLink)
+        }
     }
 
     @Test
@@ -46,7 +48,7 @@ class KaKaoMapServiceTest {
 
     @Test
     fun searchKeyword() {
-        val searchKeyword = kaKaoMapService.searchKeyword("카카오프렌즈")
+        val searchKeyword = kaKaoMapService.searchKeyword("경희도선한의원")
         println()
     }
 
