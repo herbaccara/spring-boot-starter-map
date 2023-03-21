@@ -42,13 +42,13 @@ class KaKaoMapService(
         )
         .build()
 
-    private fun link(type: LinkType, query: String): String = "https://map.kakao.com/link/$type/$query"
+    private fun link(type: LinkType, query: Any): String = "https://map.kakao.com/link/$type/$query"
 
     // link to
 
     fun linkTo(name: String, x: Double, y: Double): String = link(LinkType.to, "$name,$y,$x")
 
-    fun linkTo(id: Long): String = link(LinkType.to, "$id")
+    fun linkTo(id: Long): String = link(LinkType.to, id)
 
     fun linkTo(doc: SearchAddressResult.Document): String {
         return linkTo(doc.addressName, doc.x, doc.y)
@@ -60,13 +60,13 @@ class KaKaoMapService(
 
     fun linkMap(x: Double, y: Double): String = link(LinkType.map, "$y,$x")
 
-    fun linkMap(id: Long): String = link(LinkType.map, "$id")
+    fun linkMap(id: Long): String = link(LinkType.map, id)
 
     // link roadview
 
     fun linkRoadview(x: Double, y: Double): String = link(LinkType.roadview, "$y,$x")
 
-    fun linkRoadview(id: Long): String = link(LinkType.roadview, "$id")
+    fun linkRoadview(id: Long): String = link(LinkType.roadview, id)
 
     // link search
 
