@@ -28,9 +28,7 @@ class KaKaoMapService(
     protected val restTemplate = RestTemplateBuilder()
         .rootUri(baseUrl)
         .messageConverters(
-            listOf(
-                MappingJackson2HttpMessageConverter(objectMapper)
-            )
+            MappingJackson2HttpMessageConverter(objectMapper)
         )
         .additionalInterceptors(
             ClientHttpRequestInterceptor { request, body, execution ->
