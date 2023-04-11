@@ -37,6 +37,13 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+        extendsFrom kapt
+    }
+}
+
 idea {
     module {
         sourceDirs = sourceDirs + file("build/generated/ksp/main/kotlin") + file("build/generated/ksp/test/kotlin")
@@ -54,6 +61,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot:2.7.0'
     implementation 'org.springframework.boot:spring-boot-autoconfigure:2.7.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.7.0"
     kapt "org.springframework.boot:spring-boot-configuration-processor:2.7.0"
 
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3'
