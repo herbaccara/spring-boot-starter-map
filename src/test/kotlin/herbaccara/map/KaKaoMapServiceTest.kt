@@ -1,8 +1,9 @@
 package herbaccara.map
 
 import herbaccara.boot.autoconfigure.map.kakao.KaKaoMapAutoConfiguration
-import herbaccara.map.form.kakao.SearchCategoryForm
-import herbaccara.map.model.kakao.CategoryGroupCode
+import herbaccara.map.kakao.KaKaoMapService
+import herbaccara.map.kakao.form.SearchCategoryForm
+import herbaccara.map.kakao.model.CategoryGroupCode
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

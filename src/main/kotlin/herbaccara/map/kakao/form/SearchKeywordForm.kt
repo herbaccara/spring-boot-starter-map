@@ -1,8 +1,10 @@
-package herbaccara.map.form.kakao
+package herbaccara.map.kakao.form
 
-import herbaccara.map.model.kakao.CategoryGroupCode
+import com.toasttab.ksp.builder.annotations.GenerateBuilder
+import herbaccara.map.kakao.model.CategoryGroupCode
 import org.springframework.util.MultiValueMap
 
+@GenerateBuilder
 data class SearchKeywordForm @JvmOverloads constructor(
     val query: String,
     val categoryGroupCode: CategoryGroupCode? = null,
@@ -14,6 +16,12 @@ data class SearchKeywordForm @JvmOverloads constructor(
     override val size: Int? = null,
     override val sort: Sort? = null
 ) : SearchForm {
+
+    companion object {
+
+        @JvmStatic
+        fun builder(): SearchKeywordFormBuilder = SearchKeywordFormBuilder()
+    }
 
     override fun toMultiValueMap(): MultiValueMap<String, String> {
         return super.toMultiValueMap().apply {

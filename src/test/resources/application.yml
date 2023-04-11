@@ -1,6 +1,12 @@
 map:
   kakao:
+    enabled: true
     api-key:
+    fail-on-unknown-properties: true
+  naver:
+    enabled: true
+    client-id:
+    client-secret:
     fail-on-unknown-properties: true
 logging:
   level:

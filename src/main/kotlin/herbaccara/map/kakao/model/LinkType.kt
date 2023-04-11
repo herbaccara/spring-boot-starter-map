@@ -1,4 +1,4 @@
-package herbaccara.map.model.kakao
+package herbaccara.map.kakao.model
 
 @Suppress("EnumEntryName")
 enum class LinkType {

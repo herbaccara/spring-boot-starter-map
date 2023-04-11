@@ -1,10 +1,10 @@
-package herbaccara.map
+package herbaccara.map.kakao
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import herbaccara.map.form.kakao.SearchCategoryForm
-import herbaccara.map.form.kakao.SearchKeywordForm
-import herbaccara.map.model.kakao.*
+import herbaccara.map.kakao.form.SearchCategoryForm
+import herbaccara.map.kakao.form.SearchKeywordForm
+import herbaccara.map.kakao.model.*
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter

@@ -1,4 +1,4 @@
-package herbaccara.map.model.kakao
+package herbaccara.map.kakao.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

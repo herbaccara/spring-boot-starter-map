@@ -1,4 +1,4 @@
-package herbaccara.map.form.kakao
+package herbaccara.map.kakao.form
 
 enum class Sort {
     distance, accuracy

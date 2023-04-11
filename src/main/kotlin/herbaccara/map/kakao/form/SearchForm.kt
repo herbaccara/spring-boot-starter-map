@@ -1,4 +1,4 @@
-package herbaccara.map.form.kakao
+package herbaccara.map.kakao.form
 
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap

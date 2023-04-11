@@ -7,10 +7,12 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.22'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.7.22'
     id "org.jmailen.kotlinter" version "3.13.0"
+    id 'idea'
+    id "com.google.devtools.ksp" version "1.7.22-1.0.8"
 }
 
 group = 'herbaccara'
-version = '0.0.2'
+version = '0.0.3'
 sourceCompatibility = '1.8'
 
 publishing {
@@ -34,6 +36,13 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
+idea {
+    module {
+        sourceDirs = sourceDirs + file("build/generated/ksp/main/kotlin") + file("build/generated/ksp/test/kotlin")
+        generatedSourceDirs = generatedSourceDirs + file("build/generated/ksp/main/kotlin") + file("build/generated/ksp/test/kotlin")
+    }
+}
+
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
@@ -49,6 +58,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
 
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
+
+    implementation "com.toasttab.ksp.builder:ksp-builder-gen-annotations:0.0.5"
+    ksp "com.toasttab.ksp.builder:ksp-builder-gen-processor:0.0.5"
 }
 
 tasks.withType(KotlinCompile) {

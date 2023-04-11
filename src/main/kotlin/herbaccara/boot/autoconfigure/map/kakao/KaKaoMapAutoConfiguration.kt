@@ -1,6 +1,6 @@
 package herbaccara.boot.autoconfigure.map.kakao
 
-import herbaccara.map.KaKaoMapService
+import herbaccara.map.kakao.KaKaoMapService
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -9,7 +9,7 @@ import java.util.*
 
 @AutoConfiguration
 @EnableConfigurationProperties(KaKaoMapProperties::class)
-@ConditionalOnProperty(prefix = "map.kakao", value = ["enabled"], havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "map.kakao", value = ["enabled"], havingValue = "true")
 class KaKaoMapAutoConfiguration {
 
     @Bean

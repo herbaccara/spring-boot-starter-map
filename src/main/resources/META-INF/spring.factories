@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  herbaccara.boot.autoconfigure.map.kakao.KaKaoMapAutoConfiguration
+  herbaccara.boot.autoconfigure.map.kakao.KaKaoMapAutoConfiguration,\
+  herbaccara.boot.autoconfigure.map.naver.NaverMapAutoConfiguration
