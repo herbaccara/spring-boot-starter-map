@@ -1,12 +1,13 @@
 package herbaccara.map.naver.form
 
 import com.toasttab.ksp.builder.annotations.GenerateBuilder
+import herbaccara.map.Coordinate
 
 @GenerateBuilder
 data class RasterForm @JvmOverloads constructor(
     val width: Int,
     val height: Int,
-    val center: Center? = null,
+    val center: Coordinate? = null,
     val crs: String? = null,
     val level: Int? = null,
     val mapType: MapType? = null,
@@ -22,11 +23,6 @@ data class RasterForm @JvmOverloads constructor(
         @JvmStatic
         fun builder(): RasterFormBuilder = RasterFormBuilder()
     }
-
-    data class Center(
-        val x: Double,
-        val y: Double
-    )
 
     enum class Format(val value: String) {
         JPG("jpg"),
@@ -56,14 +52,13 @@ data class RasterForm @JvmOverloads constructor(
     }
 
     data class Marker @JvmOverloads constructor(
-        val pos: Position,
+        val pos: Coordinate,
         val type: Type = Type.DEFAULT,
         val size: Size = Size.MID,
         val viewSizeRatio: Double = 1.0,
         val color: String? = null,
         val label: String? = null
     ) {
-        data class Position(val x: Double, val y: Double)
 
         enum class Type(val value: String) {
             DEFAULT("d"),

@@ -1,6 +1,7 @@
 package herbaccara.map.kakao.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import herbaccara.map.Coordinate
 
 data class SearchKeywordResult(
     val documents: List<Document>,
@@ -22,9 +23,9 @@ data class SearchKeywordResult(
         @field:JsonProperty("phone") val phone: String,
         @field:JsonProperty("address_name") val addressName: String,
         @field:JsonProperty("road_address_name") val roadAddressName: String,
-        @field:JsonProperty("x") val x: Double,
-        @field:JsonProperty("y") val y: Double,
+        @field:JsonProperty("x") override val x: Double,
+        @field:JsonProperty("y") override val y: Double,
         @field:JsonProperty("place_url") val placeUrl: String,
         @field:JsonProperty("distance") val distance: String
-    )
+    ) : Coordinate
 }

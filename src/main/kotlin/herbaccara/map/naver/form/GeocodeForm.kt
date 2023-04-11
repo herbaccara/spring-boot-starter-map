@@ -1,6 +1,7 @@
 package herbaccara.map.naver.form
 
 import com.toasttab.ksp.builder.annotations.GenerateBuilder
+import herbaccara.map.Coordinate
 
 @GenerateBuilder
 data class GeocodeForm @JvmOverloads constructor(
@@ -24,8 +25,6 @@ data class GeocodeForm @JvmOverloads constructor(
         KOR("kor"),
         ENG("eng")
     }
-
-    data class Coordinate(val x: Double, val y: Double)
 
     data class Filter(val type: Type, val codes: List<String>) {
 

@@ -1,6 +1,7 @@
 package herbaccara.map.kakao.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import herbaccara.map.Coordinate
 
 data class TransCoordResult(
     val documents: List<Document>,
@@ -11,7 +12,7 @@ data class TransCoordResult(
     )
 
     data class Document(
-        val x: Double,
-        val y: Double
-    )
+        override val x: Double,
+        override val y: Double
+    ) : Coordinate
 }

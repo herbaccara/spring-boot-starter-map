@@ -5,7 +5,6 @@ import herbaccara.map.naver.NaverMapService
 import herbaccara.map.naver.form.GeocodeForm
 import herbaccara.map.naver.form.RasterForm
 import herbaccara.map.naver.form.RasterForm.Marker
-import herbaccara.map.naver.form.RasterForm.Marker.Position
 import herbaccara.map.naver.form.RasterForm.Marker.Type
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,7 +37,7 @@ class NaverMapServiceTest {
             .addMarkers(
                 Marker(
                     type = Type.NUMBER,
-                    pos = Position(127.1054221, 37.3591614),
+                    pos = Coordinate.of(127.1054221, 37.3591614),
                     label = "9",
                     color = "Orange"
                 )
@@ -53,7 +52,7 @@ class NaverMapServiceTest {
     fun geocode() {
         val form = GeocodeForm.builder()
             .query("분당구 불정로 6")
-            .coordinate(GeocodeForm.Coordinate(127.1054328, 37.3595963))
+            .coordinate(Coordinate.of(127.1054328, 37.3595963))
             .build()
         val geocode = naverMapService.geocode(form)
         println()

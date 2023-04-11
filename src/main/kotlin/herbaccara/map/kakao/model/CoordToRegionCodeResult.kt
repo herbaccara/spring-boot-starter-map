@@ -1,6 +1,7 @@
 package herbaccara.map.kakao.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import herbaccara.map.Coordinate
 
 data class CoordToRegionCodeResult(
     val documents: List<Document>,
@@ -18,7 +19,7 @@ data class CoordToRegionCodeResult(
         @field:JsonProperty("region_3depth_name") val region3depthName: String,
         @field:JsonProperty("region_4depth_name") val region4depthName: String,
         val code: String,
-        val x: Double,
-        val y: Double
-    )
+        override val x: Double,
+        override val y: Double
+    ) : Coordinate
 }

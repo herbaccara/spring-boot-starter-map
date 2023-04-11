@@ -1,6 +1,7 @@
 package herbaccara.map.kakao.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import herbaccara.map.Coordinate
 
 data class RoadAddress(
     @field:JsonProperty("address_name") val addressName: String,
@@ -13,6 +14,6 @@ data class RoadAddress(
     @field:JsonProperty("sub_building_no") val subBuildingNo: String,
     @field:JsonProperty("building_name") val buildingName: String,
     @field:JsonProperty("zone_no") val zoneNo: String,
-    val x: Double,
-    val y: Double
-)
+    override val x: Double,
+    override val y: Double
+) : Coordinate
