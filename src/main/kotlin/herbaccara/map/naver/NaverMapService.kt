@@ -112,7 +112,7 @@ class NaverMapService(
                 queryParam("query", form.query)
                 queryParam("page", form.page)
                 queryParam("count", form.count)
-                queryParam("language", form.language)
+                queryParam("language", form.language.value)
                 if (form.coordinate != null) {
                     queryParam("coordinate", "${form.coordinate.x},${form.coordinate.y}")
                 }

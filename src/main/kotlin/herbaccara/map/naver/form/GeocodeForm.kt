@@ -9,8 +9,8 @@ data class GeocodeForm @JvmOverloads constructor(
     val page: Int = 1,
     @GenerateBuilder.Default("10")
     val count: Int = 10,
-    @GenerateBuilder.Default("\"kor\"")
-    val language: String = "kor",
+    @GenerateBuilder.Default("GeocodeForm.Language.KOR")
+    val language: Language = Language.KOR,
     val coordinate: Coordinate? = null,
     val filter: Filter? = null
 ) {
@@ -18,6 +18,11 @@ data class GeocodeForm @JvmOverloads constructor(
 
         @JvmStatic
         fun builder(): GeocodeFormBuilder = GeocodeFormBuilder()
+    }
+
+    enum class Language(val value: String) {
+        KOR("kor"),
+        ENG("eng")
     }
 
     data class Coordinate(val x: Double, val y: Double)
