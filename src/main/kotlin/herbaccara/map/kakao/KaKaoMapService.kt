@@ -49,9 +49,9 @@ class KaKaoMapService(
 
     fun linkTo(id: Long): String = link(LinkType.to, id)
 
-    fun linkTo(doc: SearchAddressResult.Document): String {
-        return linkTo(doc.addressName, doc.x, doc.y)
-    }
+    fun linkTo(doc: SearchAddressResult.Document): String = linkTo(doc.addressName, doc)
+
+    fun linkTo(name: String, coordinate: Coordinate): String = linkTo(name, coordinate.x, coordinate.y)
 
     // link map
 
@@ -61,11 +61,17 @@ class KaKaoMapService(
 
     fun linkMap(id: Long): String = link(LinkType.map, id)
 
+    fun linkMap(coordinate: Coordinate): String = linkMap(coordinate.x, coordinate.y)
+
+    fun linkMap(name: String, coordinate: Coordinate): String = linkMap(name, coordinate.x, coordinate.y)
+
     // link roadview
 
     fun linkRoadview(x: Double, y: Double): String = link(LinkType.roadview, "$y,$x")
 
     fun linkRoadview(id: Long): String = link(LinkType.roadview, id)
+
+    fun linkRoadview(coordinate: Coordinate): String = linkRoadview(coordinate.x, coordinate.y)
 
     // link search
 
