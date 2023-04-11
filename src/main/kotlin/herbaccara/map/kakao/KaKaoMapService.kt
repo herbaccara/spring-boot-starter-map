@@ -2,6 +2,7 @@ package herbaccara.map.kakao
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import herbaccara.map.Coordinate
 import herbaccara.map.kakao.form.SearchCategoryForm
 import herbaccara.map.kakao.form.SearchKeywordForm
 import herbaccara.map.kakao.model.*
@@ -94,6 +95,15 @@ class KaKaoMapService(
 
     @JvmOverloads
     fun coordToRegionCode(
+        coordinate: Coordinate,
+        inputCoord: CoordType = CoordType.WGS84,
+        outputCoord: CoordType = CoordType.WGS84
+    ): CoordToRegionCodeResult {
+        return coordToRegionCode(coordinate.x, coordinate.y, inputCoord, outputCoord)
+    }
+
+    @JvmOverloads
+    fun coordToRegionCode(
         x: Double,
         y: Double,
         inputCoord: CoordType = CoordType.WGS84,
@@ -112,6 +122,14 @@ class KaKaoMapService(
 
     @JvmOverloads
     fun coordToAddress(
+        coordinate: Coordinate,
+        inputCoord: CoordType = CoordType.WGS84
+    ): CoordToAddressResult {
+        return coordToAddress(coordinate.x, coordinate.y, inputCoord)
+    }
+
+    @JvmOverloads
+    fun coordToAddress(
         x: Double,
         y: Double,
         inputCoord: CoordType = CoordType.WGS84
@@ -124,6 +142,15 @@ class KaKaoMapService(
             .toUriString()
 
         return restTemplate.getForObject(uri)
+    }
+
+    @JvmOverloads
+    fun transCoord(
+        coordinate: Coordinate,
+        inputCoord: CoordType = CoordType.WGS84,
+        outputCoord: CoordType = CoordType.WGS84
+    ): TransCoordResult {
+        return transCoord(coordinate.x, coordinate.y, inputCoord, outputCoord)
     }
 
     @JvmOverloads

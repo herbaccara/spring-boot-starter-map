@@ -4,6 +4,7 @@ import herbaccara.boot.autoconfigure.map.kakao.KaKaoMapAutoConfiguration
 import herbaccara.map.kakao.KaKaoMapService
 import herbaccara.map.kakao.form.SearchCategoryForm
 import herbaccara.map.kakao.model.CategoryGroupCode
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,11 +23,23 @@ class KaKaoMapServiceTest {
 
     @Test
     fun searchAddress() {
-        val search = kaKaoMapService.searchAddress("경희도선한의원")
+        val search = kaKaoMapService.searchAddress("영등포구 63로 50")
         if (search.documents.isNotEmpty()) {
             val toLink = kaKaoMapService.linkTo(search.documents.first())
             println(toLink)
         }
+    }
+
+    @Test
+    fun searchAddress2() {
+        val search = kaKaoMapService.searchAddress("전북 삼성동 100")
+        Assertions.assertNull(search.documents.first().roadAddress)
+    }
+
+    @Test
+    fun searchAddress3() {
+        val search = kaKaoMapService.searchAddress("영동대로 513")
+        Assertions.assertNotNull(search.documents.first().roadAddress)
     }
 
     @Test

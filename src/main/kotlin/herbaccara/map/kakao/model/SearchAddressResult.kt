@@ -19,7 +19,7 @@ data class SearchAddressResult(
         override val x: Double,
         override val y: Double,
         val address: Address,
-        @field:JsonProperty("road_address") val roadAddress: RoadAddress
+        @field:JsonProperty("road_address") val roadAddress: RoadAddress?
     ) : Coordinate {
         data class Address(
             @field:JsonProperty("address_name") val addressName: String,
