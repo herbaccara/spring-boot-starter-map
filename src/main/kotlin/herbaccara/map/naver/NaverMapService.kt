@@ -114,7 +114,7 @@ class NaverMapService(
                 queryParam("count", form.count)
                 queryParam("language", form.language)
                 if (form.coordinate != null) {
-                    queryParam("coordinate", form.coordinate)
+                    queryParam("coordinate", "${form.coordinate.x},${form.coordinate.y}")
                 }
                 if (form.filter != null) {
                     queryParam("filter", form.filter.let { "${it.type}@${it.codes.joinToString(";")}" })

@@ -26,6 +26,18 @@ data class GeocodeResult(
             val longName: String,
             val shortName: String,
             val code: String
-        )
+        ) {
+            enum class Type {
+                SIDO,
+                SIGUGUN,
+                DONGMYUN,
+                RI,
+                ROAD_NAME,
+                BUILDING_NUMBER,
+                BUILDING_NAME,
+                LAND_NUMBER,
+                POSTAL_CODE
+            }
+        }
     }
 }

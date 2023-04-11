@@ -53,6 +53,7 @@ class NaverMapServiceTest {
     fun geocode() {
         val form = GeocodeForm.builder()
             .query("분당구 불정로 6")
+            .coordinate(GeocodeForm.Coordinate(127.1054328, 37.3595963))
             .build()
         val geocode = naverMapService.geocode(form)
         println()
